@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نورت - متجر الهضبة</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="attached_assets/photo_5023968532446163250_x_1756814368671.jpg" alt="متجر الهضبة" class="logo-img">
+                <h1>نورت - متجر الهضبة</h1>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="ابحث عن المنتجات..." />
+                <button onclick="searchProducts()"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="header-actions">
+                <button class="cart-btn" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cartCount">0</span>
+                </button>
+                <button class="login-btn" onclick="toggleLogin()">
+                    <i class="fas fa-user"></i>
+                    تسجيل الدخول
+                </button>
+                <a href="admin.html" class="admin-link">لوحة الإدارة</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="toggleLogin()">&times;</span>
+            <h2>تسجيل الدخول / إنشاء حساب</h2>
+            <form id="loginForm">
+                <input type="text" id="username" placeholder="اسم المستخدم" required>
+                <input type="email" id="email" placeholder="البريد الإلكتروني" required>
+                <input type="tel" id="phone" placeholder="رقم الهاتف" required>
+                <button type="submit">تسجيل</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Categories -->
+    <section class="categories">
+        <div class="container">
+            <h2>الفئات</h2>
+            <div class="category-grid">
+                <div class="category-item" onclick="filterProducts('electronics')">
+                    <i class="fas fa-laptop"></i>
+                    <span>إلكترونيات</span>
+                </div>
+                <div class="category-item" onclick="filterProducts('clothing')">
+                    <i class="fas fa-tshirt"></i>
+                    <span>ملابس</span>
+                </div>
+                <div class="category-item" onclick="filterProducts('home')">
+                    <i class="fas fa-home"></i>
+                    <span>منزل</span>
+                </div>
+                <div class="category-item" onclick="filterProducts('sports')">
+                    <i class="fas fa-dumbbell"></i>
+                    <span>رياضة</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products">
+        <div class="container">
+            <h2>المنتجات المميزة</h2>
+            <div id="productsGrid" class="products-grid">
+                <!-- Products will be loaded here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="toggleCart()">&times;</span>
+            <h2>سلة التسوق</h2>
+            <div id="cartItems"></div>
+            <div class="cart-total">
+                <strong>المجموع: <span id="cartTotal">0</span> جنيه</strong>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">إتمام الطلب</button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCheckout()">&times;</span>
+            <h2>إتمام الطلب</h2>
+            <form id="checkoutForm">
+                <input type="text" id="customerName" placeholder="الاسم الكامل" required>
+                <input type="tel" id="customerPhone" placeholder="رقم الهاتف" required>
+                <textarea id="customerAddress" placeholder="العنوان التفصيلي" required></textarea>
+                <input type="text" id="discountCode" placeholder="كود الخصم (اختياري)">
+                <button type="button" onclick="applyDiscount()">تطبيق كود الخصم</button>
+                <div class="order-summary">
+                    <div id="orderItems"></div>
+                    <div class="discount-info" id="discountInfo" style="display: none;"></div>
+                    <div class="final-total">
+                        <strong>المجموع النهائي: <span id="finalTotal">0</span> جنيه</strong>
+                    </div>
+                </div>
+                <button type="submit">تأكيد الطلب</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
