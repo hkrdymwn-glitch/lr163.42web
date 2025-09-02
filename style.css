@@ -356,6 +356,345 @@ button[type="submit"]:hover, .checkout-btn:hover {
     color: #232f3e;
 }
 
+/* Banner */
+.banner {
+    background: linear-gradient(135deg, #ff9900, #e68900);
+    color: white;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.banner-content h2 {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.banner-content p {
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+.banner-btn {
+    background: white;
+    color: #ff9900;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.banner-btn:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+/* Products Header */
+.products-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.sort-filter select {
+    padding: 10px 15px;
+    border: 2px solid #ff9900;
+    border-radius: 20px;
+    background: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Enhanced Product Cards */
+.product-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+    position: relative;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+.product-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #e47911;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.product-rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 10px 0;
+}
+
+.stars {
+    color: #ffc107;
+    font-size: 16px;
+}
+
+.rating-text {
+    font-size: 14px;
+    color: #666;
+}
+
+.product-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.quick-view {
+    flex: 1;
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.quick-view:hover {
+    background: #5a6268;
+}
+
+.add-to-cart {
+    flex: 2;
+    background: #ff9900;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.add-to-cart:hover {
+    background: #e68900;
+}
+
+/* Product Detail Modal */
+.product-detail {
+    max-width: 800px;
+    width: 90%;
+}
+
+.product-detail-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.product-detail-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.product-detail-info h2 {
+    color: #232f3e;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.product-price-detail {
+    font-size: 28px;
+    color: #e47911;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.product-description {
+    color: #666;
+    line-height: 1.6;
+    margin: 15px 0;
+}
+
+.product-features {
+    margin: 20px 0;
+}
+
+.product-features ul {
+    list-style: none;
+    padding: 0;
+}
+
+.product-features li {
+    padding: 5px 0;
+    color: #333;
+}
+
+.product-features li:before {
+    content: "✓ ";
+    color: #28a745;
+    font-weight: bold;
+}
+
+/* Reviews Section */
+.reviews-section {
+    margin-top: 30px;
+    border-top: 1px solid #eee;
+    padding-top: 30px;
+}
+
+.reviews-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.add-review-btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.review-item {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 15px 0;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.reviewer-name {
+    font-weight: bold;
+    color: #232f3e;
+}
+
+.review-date {
+    color: #666;
+    font-size: 14px;
+}
+
+.review-text {
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Rating Input */
+.rating-input {
+    margin: 15px 0;
+}
+
+.rating-input label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.stars {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.star {
+    color: #ddd;
+    transition: color 0.2s;
+}
+
+.star:hover,
+.star.active {
+    color: #ffc107;
+}
+
+/* Recommendations */
+.recommendations {
+    background: #f8f9fa;
+    padding: 40px 0;
+    margin: 30px 0;
+}
+
+.recommendations h2 {
+    color: #232f3e;
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+/* Payment Info */
+.payment-info {
+    background: #e8f5e8;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 15px 0;
+    text-align: center;
+    border: 1px solid #28a745;
+}
+
+.payment-info i {
+    color: #25d366;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+/* Wishlist */
+.wishlist-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666;
+    transition: all 0.3s;
+}
+
+.wishlist-btn:hover,
+.wishlist-btn.active {
+    background: #ff9900;
+    color: white;
+}
+
+/* Compare Products */
+.compare-btn {
+    background: #17a2b8;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 12px;
+    margin: 5px 0;
+}
+
+.compare-btn:hover {
+    background: #138496;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .header .container {
@@ -374,6 +713,19 @@ button[type="submit"]:hover, .checkout-btn:hover {
     .modal-content {
         width: 95%;
         margin: 10% auto;
+    }
+    
+    .product-detail-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .products-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .banner-content h2 {
+        font-size: 28px;
     }
 }
 
