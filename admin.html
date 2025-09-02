@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة الإدارة - متجر الهضبة</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="attached_assets/photo_5023968532446163250_x_1756814368671.jpg" alt="متجر الهضبة" class="logo-img">
+                <h1>نورت - لوحة إدارة متجر الهضبة</h1>
+            </div>
+            <div class="header-actions">
+                <!-- Admin only access -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Access Control -->
+    <div id="adminAuthOverlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 999; display: block;">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 40px; border-radius: 15px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+            <h2 style="color: #232f3e; margin-bottom: 20px;">🔒 لوحة الإدارة</h2>
+            <p style="color: #666; margin-bottom: 30px;">أدخل كلمة مرور الإدارة للوصول</p>
+            <input type="password" id="adminPassword" placeholder="كلمة المرور" style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 8px; margin-bottom: 20px; font-size: 16px;">
+            <button onclick="checkAdminAccess()" style="width: 100%; background: #ff9900; color: white; border: none; padding: 15px; border-radius: 25px; cursor: pointer; font-size: 16px; font-weight: bold;">
+                دخول
+            </button>
+            <div style="margin-top: 20px;">
+                <a href="index.html" style="color: #666; text-decoration: none;">← العودة للموقع الرئيسي</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="container" id="adminContent" style="display: none;">
+        <!-- Statistics -->
+        <div class="admin-panel">
+            <h2>إحصائيات المتجر</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h4>المنتجات</h4>
+                    <div class="stat-number" id="totalProducts">0</div>
+                </div>
+                <div class="stat-card">
+                    <h4>الطلبات</h4>
+                    <div class="stat-number" id="totalOrders">0</div>
+                </div>
+                <div class="stat-card">
+                    <h4>المستخدمين</h4>
+                    <div class="stat-number" id="totalUsers">0</div>
+                </div>
+                <div class="stat-card">
+                    <h4>المبيعات</h4>
+                    <div class="stat-number" id="totalSales">0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Sections -->
+        <div class="admin-grid">
+            <!-- Product Management -->
+            <div class="admin-section">
+                <h3><i class="fas fa-box"></i> إدارة المنتجات</h3>
+                <form id="productForm">
+                    <input type="text" id="productName" placeholder="اسم المنتج" required>
+                    <input type="number" id="productPrice" placeholder="السعر" required>
+                    <select id="productCategory" required>
+                        <option value="">اختر الفئة</option>
+                        <option value="electronics">إلكترونيات</option>
+                        <option value="clothing">ملابس</option>
+                        <option value="home">منزل</option>
+                        <option value="sports">رياضة</option>
+                    </select>
+                    <input type="number" id="productDiscount" placeholder="نسبة الخصم %" min="0" max="100">
+                    <textarea id="productDescription" placeholder="وصف المنتج"></textarea>
+                    <input type="text" id="productFeatures" placeholder="المميزات (مفصولة بفواصل)">
+                    <input type="file" id="productImage" accept="image/*" class="file-upload">
+                    <button type="submit">إضافة منتج</button>
+                </form>
+                
+                <div id="productsList" class="products-admin-list"></div>
+            </div>
+
+            <!-- Reviews Management -->
+            <div class="admin-section">
+                <h3><i class="fas fa-star"></i> إدارة المراجعات</h3>
+                <div id="reviewsManagement">
+                    <!-- Reviews will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Discount Codes -->
+            <div class="admin-section">
+                <h3><i class="fas fa-percent"></i> أكواد الخصم</h3>
+                <form id="discountForm">
+                    <input type="text" id="discountCodeInput" placeholder="كود الخصم" required>
+                    <input type="number" id="discountValue" placeholder="قيمة الخصم" required>
+                    <select id="discountType" required>
+                        <option value="percentage">نسبة مئوية</option>
+                        <option value="fixed">مبلغ ثابت</option>
+                    </select>
+                    <button type="submit">إضافة كود خصم</button>
+                </form>
+                
+                <div id="discountsList"></div>
+            </div>
+
+            <!-- Orders Management -->
+            <div class="admin-section">
+                <h3><i class="fas fa-shopping-bag"></i> إدارة الطلبات</h3>
+                <div id="ordersList" class="orders-list"></div>
+            </div>
+
+            <!-- Banner Management -->
+            <div class="admin-section">
+                <h3><i class="fas fa-bullhorn"></i> إدارة الإعلانات</h3>
+                <form id="bannerForm">
+                    <input type="text" id="bannerTitle" placeholder="عنوان الإعلان" required>
+                    <textarea id="bannerDescription" placeholder="وصف الإعلان" required></textarea>
+                    <input type="file" id="bannerImage" accept="image/*" class="file-upload">
+                    <button type="submit">إضافة إعلان</button>
+                </form>
+                
+                <div id="bannersManagement"></div>
+            </div>
+
+            <!-- Users Management -->
+            <div class="admin-section">
+                <h3><i class="fas fa-users"></i> إدارة المستخدمين</h3>
+                <table class="users-table" id="usersTable">
+                    <thead>
+                        <tr>
+                            <th>اسم المستخدم</th>
+                            <th>البريد الإلكتروني</th>
+                            <th>الهاتف</th>
+                            <th>تاريخ التسجيل</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
