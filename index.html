@@ -25,11 +25,14 @@
                     <i class="fas fa-shopping-cart"></i>
                     <span id="cartCount">0</span>
                 </button>
-                <button class="login-btn" onclick="toggleLogin()">
+                <button class="login-btn" id="loginBtn" onclick="toggleLogin()">
                     <i class="fas fa-user"></i>
-                    تسجيل الدخول
+                    <span id="loginText">تسجيل الدخول</span>
                 </button>
-                <a href="admin.html" class="admin-link">لوحة الإدارة</a>
+                <button class="login-btn" id="logoutBtn" onclick="logout()" style="display: none;">
+                    <i class="fas fa-sign-out-alt"></i>
+                    تسجيل خروج
+                </button>
             </div>
         </div>
     </header>
@@ -37,14 +40,46 @@
     <!-- Login Modal -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="toggleLogin()">&times;</span>
-            <h2>تسجيل الدخول / إنشاء حساب</h2>
-            <form id="loginForm">
+            <h2 id="authTitle">مرحباً بك في متجر الهضبة</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 20px;">يجب تسجيل الدخول أولاً للتسوق</p>
+            
+            <!-- Login Form -->
+            <form id="loginForm" style="display: block;">
+                <h3>تسجيل الدخول</h3>
+                <input type="email" id="loginEmail" placeholder="البريد الإلكتروني" required>
+                <input type="password" id="loginPassword" placeholder="كلمة المرور" required>
+                <button type="submit">تسجيل الدخول</button>
+                <p style="text-align: center; margin-top: 15px;">
+                    ليس لديك حساب؟ 
+                    <button type="button" onclick="switchToRegister()" style="background: none; border: none; color: #ff9900; cursor: pointer; text-decoration: underline;">إنشاء حساب جديد</button>
+                </p>
+            </form>
+            
+            <!-- Register Form -->
+            <form id="registerForm" style="display: none;">
+                <h3>إنشاء حساب جديد</h3>
                 <input type="text" id="username" placeholder="اسم المستخدم" required>
                 <input type="email" id="email" placeholder="البريد الإلكتروني" required>
+                <input type="password" id="password" placeholder="كلمة المرور" required minlength="6">
+                <input type="password" id="confirmPassword" placeholder="تأكيد كلمة المرور" required minlength="6">
                 <input type="tel" id="phone" placeholder="رقم الهاتف" required>
-                <button type="submit">تسجيل</button>
+                <button type="submit">إنشاء حساب</button>
+                <p style="text-align: center; margin-top: 15px;">
+                    لديك حساب بالفعل؟ 
+                    <button type="button" onclick="switchToLogin()" style="background: none; border: none; color: #ff9900; cursor: pointer; text-decoration: underline;">تسجيل الدخول</button>
+                </p>
             </form>
+        </div>
+    </div>
+    
+    <!-- Main Content Overlay -->
+    <div id="contentOverlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 999; display: block;">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white;">
+            <h2>يرجى تسجيل الدخول للمتابعة</h2>
+            <p>للوصول إلى متجر الهضبة، يجب تسجيل الدخول أولاً</p>
+            <button onclick="toggleLogin()" style="background: #ff9900; color: white; border: none; padding: 15px 30px; border-radius: 25px; cursor: pointer; font-size: 16px; margin-top: 20px;">
+                تسجيل الدخول
+            </button>
         </div>
     </div>
 
@@ -73,12 +108,44 @@
         </div>
     </section>
 
-    <!-- Products -->
-    <section class="products">
+    <!-- Banner -->
+    <section class="banner">
         <div class="container">
-            <h2>المنتجات المميزة</h2>
+            <div class="banner-content">
+                <h2>عروض حصرية من متجر الهضبة</h2>
+                <p>اكتشف أفضل المنتجات بأسعار لا تُقاوم</p>
+                <button class="banner-btn" onclick="scrollToProducts()">تسوق الآن</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products" id="productsSection">
+        <div class="container">
+            <div class="products-header">
+                <h2>المنتجات المميزة</h2>
+                <div class="sort-filter">
+                    <select id="sortSelect" onchange="sortProducts()">
+                        <option value="default">الترتيب الافتراضي</option>
+                        <option value="price-low">السعر: من الأقل للأعلى</option>
+                        <option value="price-high">السعر: من الأعلى للأقل</option>
+                        <option value="name">الاسم: أ-ي</option>
+                        <option value="rating">التقييم: الأعلى</option>
+                    </select>
+                </div>
+            </div>
             <div id="productsGrid" class="products-grid">
                 <!-- Products will be loaded here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Recommendations -->
+    <section class="recommendations">
+        <div class="container">
+            <h2>قد يعجبك أيضاً</h2>
+            <div id="recommendationsGrid" class="products-grid">
+                <!-- Recommendations will be loaded here -->
             </div>
         </div>
     </section>
@@ -114,7 +181,43 @@
                         <strong>المجموع النهائي: <span id="finalTotal">0</span> جنيه</strong>
                     </div>
                 </div>
-                <button type="submit">تأكيد الطلب</button>
+                <div class="payment-info">
+                    <p><i class="fab fa-whatsapp"></i> سيتم توجيهك للواتساب لإتمام الدفع والتأكيد</p>
+                </div>
+                <button type="submit">إرسال للواتساب</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content product-detail">
+            <span class="close" onclick="closeProductModal()">&times;</span>
+            <div id="productDetailContent">
+                <!-- Product details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Modal -->
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeReviewModal()">&times;</span>
+            <h2>إضافة مراجعة</h2>
+            <form id="reviewForm">
+                <div class="rating-input">
+                    <label>التقييم:</label>
+                    <div class="stars">
+                        <span class="star" data-rating="1">★</span>
+                        <span class="star" data-rating="2">★</span>
+                        <span class="star" data-rating="3">★</span>
+                        <span class="star" data-rating="4">★</span>
+                        <span class="star" data-rating="5">★</span>
+                    </div>
+                </div>
+                <input type="text" id="reviewerName" placeholder="اسمك" required>
+                <textarea id="reviewText" placeholder="اكتب مراجعتك هنا..." required></textarea>
+                <button type="submit">إرسال المراجعة</button>
             </form>
         </div>
     </div>
